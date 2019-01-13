@@ -27,9 +27,7 @@ module.exports = ({
     }
 
     // Save the new collection to memory
-
     collection.push(data);
-
     const { err } = await writeFile(resourcePath, collection);
 
     if (err) {
@@ -38,7 +36,6 @@ module.exports = ({
 
     return {
       error: false,
-
       data,
     };
   },
