@@ -1,6 +1,8 @@
 const fs = require('fs');
+const path = require('path');
 
 const requiredParam = require('./utils/requiredParam');
+const createFullPath = require('./utils/createFullPath');
 const constants = require('./constants');
 const getResourceName = require('./helpers/getResourceName');
 const createResource = require('./helpers/createResource');
@@ -28,14 +30,14 @@ module.exports = {
     dbPath = constants.DB_PATH,
     models = {},
   }) => {
-    const collectionPath = `${dbPath}${
-      dbPath.slice(-1) === '/' ? '' : '/'
-    }${dbName}/`;
+    const collectionPath = path.resolve(`${dbPath}/${dbName}/`);
 
     // Create the db folder if it doesn't exists
-    if (!fs.existsSync(collectionPath)) {
-      fs.mkdirSync(collectionPath);
-    }
+    // if (!fs.existsSync(collectionPath)) {
+    //   fs.mkdirSync(collectionPath);
+    // }
+
+    createFullPath(collectionPath);
 
     // Create the Models if they don't exist
     if (Models === undefined) {
@@ -43,7 +45,9 @@ module.exports = {
         async (gather, [modelName, model]) => {
           // Create the resource if it does not exist
 
-          const resourcePath = `${collectionPath}${getResourceName(modelName)}`;
+          const resourcePath = path.resolve(
+            `${collectionPath}/${getResourceName(modelName)}`,
+          );
           await createResource(resourcePath);
 
           // Create the CRUD for the model
