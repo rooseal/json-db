@@ -32,11 +32,6 @@ module.exports = {
   }) => {
     const collectionPath = path.resolve(`${dbPath}/${dbName}/`);
 
-    // Create the db folder if it doesn't exists
-    // if (!fs.existsSync(collectionPath)) {
-    //   fs.mkdirSync(collectionPath);
-    // }
-
     createFullPath(collectionPath);
 
     // Create the Models if they don't exist
