@@ -47,6 +47,7 @@ module.exports = {
 
           // Create the CRUD for the model
           const modelCRUD = createModelCRUD({
+            modelName,
             resourcePath,
             fields: model.fields,
           });
