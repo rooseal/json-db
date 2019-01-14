@@ -50,20 +50,21 @@ module.exports = (newModel, schema) => {
   );
 
   if (containsInvalid) {
-    return error(errorMessage);
+    // return error(errorMessage);
+    throw Error(`Validation for Model failed. ${errorMessage}`);
   }
 
   // Check if there is data which is not in the schema
   if (Object.keys(remainingFields).length > 0) {
-    return error(
-      `data contains the following fields which are not defined in the schema: ${Object.keys(
+    throw Error(
+      `Validation for Model failed. Data contains the following fields which are not defined in the schema: ${Object.keys(
         remainingFields,
       )}`,
     );
   }
 
   // No errors were found with the data so we return a status with error false
-  return {
-    error: false,
-  };
+  // return {
+  //   error: false,
+  // };
 };
